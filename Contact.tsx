@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import { sendTelegramNotification, formatLeadMessage } from './telegramService.ts';
-import { sendLeadToCRM } from './crmService.ts';
 
 const Contact: React.FC = () => {
   const [contactType, setContactType] = useState<'Phone' | 'Telegram'>('Phone');
@@ -30,7 +29,15 @@ const Contact: React.FC = () => {
     };
 
     const tgSuccess = await sendTelegramNotification(formatLeadMessage(leadPayload));
-    sendLeadToCRM(leadPayload);
+// Send to AmoCRM
+    const amoCRMResponse = await fetch('/api/amocrm', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(leadPayload)
+    });
+    
+    const amoCRMResult = await amoCRMResponse.json();
+    console.log('AmoCRM Response:', amoCRMResult);
 
     if (tgSuccess) {
       setIsSuccess(true);
