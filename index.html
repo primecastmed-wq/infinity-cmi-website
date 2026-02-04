@@ -56,3 +56,54 @@
     <script type="module" src="/index.tsx"></script>
 </body>
 </html>
+
+  <!-- Telegram Contact Button -->
+  <a href="https://t.me/Help_agent007_bot" target="_blank" rel="noopener noreferrer" class="telegram-button">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161l-1.699 8.011c-.128.571-.466.713-.943.444l-2.603-1.918-1.255 1.207c-.139.139-.256.256-.525.256l.188-2.664 4.851-4.386c.211-.187-.046-.291-.326-.104l-5.994 3.774-2.581-.806c-.561-.176-.572-.561.117-.832l10.086-3.88c.467-.175.876.108.724.816z"/>
+    </svg>
+    <span>Связаться</span>
+  </a>
+
+  <style>
+    .telegram-button {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #0088cc, #229ED9);
+      color: white;
+      padding: 14px 24px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      box-shadow: 0 4px 15px rgba(0, 136, 204, 0.4);
+      transition: all 0.3s ease;
+      z-index: 1000;
+      font-family: 'Inter', sans-serif;
+    }
+    .telegram-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 136, 204, 0.5);
+      background: linear-gradient(135deg, #229ED9, #0088cc);
+    }
+    .telegram-button svg {
+      width: 24px;
+      height: 24px;
+    }
+    @media (max-width: 768px) {
+      .telegram-button {
+        bottom: 20px;
+        right: 20px;
+        padding: 12px 20px;
+        font-size: 14px;
+      }
+      .telegram-button svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  </style>
