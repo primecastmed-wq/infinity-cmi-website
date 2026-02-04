@@ -20,5 +20,4 @@ export const sendTelegramNotification = async (message: string) => {
 };
 
 export const formatLeadMessage = (data: any) => {
-  return `🚀 <b>НОВАЯ ЗАЯВКА</b>\n👤 Имя: ${data.name}\n📞 Контакт: ${data.contact}\n📍 Источник: ${data.source}`;
-};
+  return `🚀 <b>НОВАЯ ЗАЯВКА CMI</b>\n\n👤 Имя: ${data.name}\n📞 Контакт: ${data.contact}\n🏢 Компания: ${data.company || 'Не указана'}\n📊 Статус: ${data.status || 'Стандартный'}\n📝 Детали: ${data.details || 'Не указаны'}\n📍 Источник: ${data.source}`;};
