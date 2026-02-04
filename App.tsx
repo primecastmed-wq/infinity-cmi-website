@@ -17,6 +17,7 @@ import Roadmap from './Roadmap.tsx';
 import UnitEconomics from './UnitEconomics.tsx';
 import LegalPages from './LegalPages.tsx';
 import CookieConsent from './CookieConsent.tsx';
+import './crmListener'; // CRM BroadcastChannel listener
 
 const App: React.FC = () => {
   const [isAiOpen, setIsAiOpen] = useState(false);
