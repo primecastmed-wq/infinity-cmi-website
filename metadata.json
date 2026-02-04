@@ -1,0 +1,30 @@
+{
+  "name": "CMI | Infinity Strategic Systems",
+  "short_name": "CMI Infinity",
+  "description": "Стратегический хаб CMI: консалтинг полного цикла, управление активами и технологический аудит на cmi-company.ru.",
+  "start_url": "https://cmi-company.ru",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "lang": "ru",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
+  "icons": [
+    {
+      "src": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=192",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "keywords": [
+    "cmi-company.ru",
+    "консалтинг",
+    "стратегия бизнеса",
+    "управление рисками",
+    "инвестиции",
+    "аудит"
+  ]
+}

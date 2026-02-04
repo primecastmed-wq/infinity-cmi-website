@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>CMI | Infinity Strategic Systems — Проектируем будущее прибыли</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+      body { font-family: 'Inter', sans-serif; background-color: #ffffff; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+      .font-serif { font-family: 'Playfair Display', serif; }
+      #loader { position: fixed; inset: 0; background: #000; display: flex; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+      .animate-spin-slow { animation: spin 3s linear infinite; }
+      @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    </style>
+
+    <script type="importmap">
+    {
+      "imports": {
+        "@google/genai": "https://esm.sh/@google/genai@^1.38.0",
+        "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+        "react/": "https://esm.sh/react@^19.2.3/",
+        "react": "https://esm.sh/react@^19.2.3"
+      }
+    }
+    </script>
+    
+    <!-- Используем относительный путь ./index.tsx -->
+    <script type="text/babel" data-type="module" src="./index.tsx"></script>
+  <link rel="stylesheet" href="/index.css">
+</head>
+  <body class="text-slate-900 selection:bg-black selection:text-white">
+    <div id="loader">
+      <div class="flex flex-col items-center gap-6">
+        <div class="relative w-24 h-24 flex items-center justify-center">
+          <div class="absolute inset-0 border border-white/5 rotate-45"></div>
+          <div class="absolute inset-2 border-t border-emerald-500/50 rotate-45 animate-spin-slow"></div>
+          <div class="font-bold text-white text-[10px] tracking-tighter z-10">CMI</div>
+        </div>
+        <div class="text-[9px] text-white/40 uppercase tracking-[0.8em] font-bold">Connecting to CMI Node...</div>
+      </div>
+    </div>
+    <div id="root"></div>
+    <script>
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          const loader = document.getElementById('loader');
+          if (loader) { loader.style.opacity = '0'; setTimeout(() => loader.remove(), 800); }
+        }, 2000);
+      });
+    </script>
+
+      <!-- amoCRM Form Script -->
+        <script>!function(a,m,o,c,r,m){a[o+c]=a[o+c]||{setMeta:function(p){this.params=(this.params||[]).concat([p])}},a[o+r]=a[o+r]||function(f){a[o+r].f=(a[o+r].f||[]).concat([f])},a[o+r]({id:"1109522",hash:"7dae90f2cdcf9a02e47cd8d3e4f9734b",locale:"ru"}),a[o+m]=a[o+m]||function(f,k){a[o+m].f=(a[o+m].f||[]).concat([[f,k]])}}(window,0,"amo_forms_","params","load","loaded");var amo_forms_scr=document.createElement("script");amo_forms_scr.id="amoforms_script_1109522",amo_forms_scr.async=!0,amo_forms_scr.src="https://forms.amocrm.ru/forms/assets/js/amoforms.js?1734955656",document.head&&document.head.appendChild(amo_forms_scr);</script>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
