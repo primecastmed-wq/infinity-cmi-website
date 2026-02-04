@@ -10,7 +10,7 @@ const MODEL_HIERARCHY = [
 ];
 
 export const generateBusinessAdvice = async (userPrompt: string, hasLeads: boolean, attempt = 0): Promise<string> => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY });
   const modelName = MODEL_HIERARCHY[Math.min(attempt, MODEL_HIERARCHY.length - 1)];
   
   try {
@@ -40,7 +40,7 @@ export const generateBusinessAdvice = async (userPrompt: string, hasLeads: boole
 };
 
 export const analyzeUnitEconomics = async (data: any, niche: string, url: string, hasLeads: boolean, attempt = 0): Promise<string> => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY });
   const modelName = MODEL_HIERARCHY[Math.min(attempt, MODEL_HIERARCHY.length - 1)];
   const dataString = Object.entries(data).map(([key, val]) => `${key}: ${val}`).join('\n');
   const prompt = `Аудит прибыли (${niche}). Ресурс: ${url || 'н/д'}. Вводные данные:\n${dataString}. Требуется экспресс-анализ маржинальности и рисков.`;
