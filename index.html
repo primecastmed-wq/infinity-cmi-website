@@ -1,108 +1,40 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <title>CMI | Infinity Strategic Systems — Проектируем будущее прибыли</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    
-    <style>
-        body { font-family: 'Inter', sans-serif; background-color: #ffffff; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-        .font-serif { font-family: 'Playfair Display', serif; }
-        #loader { position: fixed; inset: 0; background: #000; display: flex; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
-        .animate-spin-slow { animation: spin 3s linear infinite; }
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    </style>
-        <!-- Yandex.Metrika counter -->
-        <script type="text/javascript">
-                    (function(m,e,t,r,i,k,a){
-                                    m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-                                    m[i].l=1*new Date();
-                                    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-                                    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-                                                })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=106627067', 'ym');
-
-                    ym(106627067, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
-                </script>
-        <!-- /Yandex.Metrika counter -->
-</head>
-<body class="text-slate-900 selection:bg-black selection:text-white">
-                <noscript><div><img src="https://mc.yandex.ru/watch/106627067" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <div id="loader">
-        <div class="flex flex-col items-center gap-6">
-            <div class="relative w-24 h-24 flex items-center justify-center">
-                <div class="absolute inset-0 border border-white/5 rotate-45"></div>
-                <div class="absolute inset-2 border-t border-emerald-500/50 rotate-45 animate-spin-slow"></div>
-                <div class="font-bold text-white text-[10px] tracking-tighter z-10">CMI</div>
-            </div>
-            <div class="text-[9px] text-white/40 uppercase tracking-[0.8em] font-bold">Connecting to CMI Node...</div>
-        </div>
-    </div>
-    <div id="root"></div>
-    <script>
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const loader = document.getElementById('loader');
-                if (loader) { loader.style.opacity = '0'; setTimeout(() => loader.remove(), 800); }
-            }, 2000);
-        });
-    </script>
-    
-    <!-- amoCRM Form Script -->
-    <script>!function(a,m,o,c,r,m){a[o+c]=a[o+c]||{setMeta:function(p){this.params=(this.params||[]).concat([p])}},a[o+r]=a[o+r]||function(f){a[o+r].f=(a[o+r].f||[]).concat([f])},a[o+r]({id:"1109522",hash:"7dae90f2cdcf9a02e47cd8d3e4f9734b",locale:"ru"}),a[o+m]=a[o+m]||function(f,k){a[o+m].f=(a[o+m].f||[]).concat([[f,k]])}}(window,0,"amo_forms_","params","load","loaded");var amo_forms_scr=document.createElement("script");amo_forms_scr.id="amoforms_script_1109522",amo_forms_scr.async=!0,amo_forms_scr.src="https://forms.amocrm.ru/forms/assets/js/amoforms.js?1734955656",document.head&&document.head.appendChild(amo_forms_scr);</script>
-    
-    <script type="module" src="/index.tsx"></script>
-</body>
-</html>
-
-  <!-- Telegram Contact Button -->
-  <a href="https://t.me/Help_agent007_bot" target="_blank" rel="noopener noreferrer" class="telegram-button">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161l-1.699 8.011c-.128.571-.466.713-.943.444l-2.603-1.918-1.255 1.207c-.139.139-.256.256-.525.256l.188-2.664 4.851-4.386c.211-.187-.046-.291-.326-.104l-5.994 3.774-2.581-.806c-.561-.176-.572-.561.117-.832l10.086-3.88c.467-.175.876.108.724.816z"/>
-    </svg>
-    <span>Связаться</span>
-  </a>
-
-  <style>
-    .telegram-button {
+.telegram-button {
       position: fixed;
-      bottom: 30px;
+      top: 20px;
+      right: 80px;
       display: flex;
       align-items: center;
       gap: 8px;
-              left: 30px;
-      background: linear-gradient(135deg, #0088cc, #229ED9);
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
       color: white;
-      padding: 14px 24px;
+      padding: 10px 20px;
       border-radius: 50px;
       text-decoration: none;
-      font-weight: 600;
-      font-size: 16px;
-      box-shadow: 0 4px 15px rgba(0, 136, 204, 0.4);
+      font-weight: 500;
+      font-size: 14px;
       transition: all 0.3s ease;
-      z-index: 1000;
+      z-index: 9999;
       font-family: 'Inter', sans-serif;
     }
     .telegram-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 136, 204, 0.5);
-      background: linear-gradient(135deg, #229ED9, #0088cc);
+      background: rgba(0, 136, 204, 0.2);
+      border-color: #0088cc;
+      transform: translateY(-1px);
     }
     .telegram-button svg {
-      width: 24px;
-      height: 24px;
+      width: 20px;
+      height: 20px;
     }
     @media (max-width: 768px) {
       .telegram-button {
-        bottom: 20px;
-        left: 20px;        padding: 12px 20px;
-        font-size: 14px;
+        top: 15px;
+        right: 60px;
+        padding: 8px 16px;
+        font-size: 12px;
       }
       .telegram-button svg {
-        width: 20px;
-        height: 20px;
+        width: 18px;
+        height: 18px;
       }
     }
-  </style>
