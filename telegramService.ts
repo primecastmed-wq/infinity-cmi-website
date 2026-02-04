@@ -1,23 +1,22 @@
-
-const BOT_TOKEN = '8586331958:AAGIuCPZUuwmeOT0Kv5zBjlQzYfHVCsZoi8';
-const RECIPIENTS = ['854248885', '728238305'];
-
 export const sendTelegramNotification = async (message: string) => {
-  const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
   try {
-    const sendPromises = RECIPIENTS.map(chatId => 
-      fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: chatId, text: message, parse_mode: 'HTML' }),
-      })
-    );
-    const results = await Promise.all(sendPromises);
-    return results.some(res => res.ok);
+    const response = await fetch('/api/telegram', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      return data.success;
+    }
+    return false;
   } catch (error) {
+    console.error('[Telegram] Ошибка отправки:', error);
     return false;
   }
 };
 
 export const formatLeadMessage = (data: any) => {
-  return `🚀 <b>НОВАЯ ЗАЯВКА CMI</b>\n\n👤 Имя: ${data.name}\n📞 Контакт: ${data.contact}\n🏢 Компания: ${data.company || 'Не указана'}\n📊 Статус: ${data.status || 'Стандартный'}\n📝 Детали: ${data.details || 'Не указаны'}\n📍 Источник: ${data.source}`;};
+  return `🚀 <b>НОВАЯ ЗАЯВКА CMI</b>\n\n👤 Имя: ${data.name}\n📞 Контакт: ${data.contact}\n🏢 Компания: ${data.company || 'Не указана'}\n📊 Статус: ${data.status || 'Стандартный'}\n📝 Детали: ${data.details || 'Не указаны'}\n📍 Источник: ${data.source}`;
+};
