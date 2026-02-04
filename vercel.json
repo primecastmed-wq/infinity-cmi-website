@@ -1,7 +1,6 @@
 
 {
   "cleanUrls": true,
-    "buildCommand": "",
   "trailingSlash": false,
   "rewrites": [
     {
