@@ -1,8 +1,8 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { generateBusinessAdvice } from '../services/geminiService';
-import { sendTelegramNotification, formatLeadMessage } from '../services/telegramService';
-import { sendLeadToCRM } from '../services/crmService';
+import { generateBusinessAdvice } from './geminiService';
+import { sendTelegramNotification, formatLeadMessage } from './telegramService';
+import { sendLeadToCRM } from './crmService';
 import { Message } from '../types';
 
 interface AIAssistantProps {
