@@ -16,9 +16,14 @@ const Hero: React.FC<HeroProps> = ({ onCtaClick }) => {
         <p className="text-base md:text-2xl text-slate-400 mb-10 max-w-3xl font-light">
           CMI | Infinity — стратегический партнер для тех, кто строит автономные системы.
         </p>
-        <button onClick={onCtaClick} className="bg-white text-black px-8 py-5 font-bold uppercase tracking-widest text-xs hover:bg-emerald-500 hover:text-white transition-all">
-          Запросить аудит проекта
-        </button>
+        <div className="flex flex-col sm:flex-row gap-4">
+          <button onClick={onCtaClick} className="bg-white text-black px-8 py-5 font-bold uppercase tracking-widest text-xs hover:bg-emerald-500 hover:text-white transition-all">
+            Запросить аудит проекта
+          </button>
+          <a href="https://t.me/Help_agent007_bot" target="_blank" rel="noreferrer" className="inline-flex items-center justify-center border border-white/60 text-white px-8 py-5 font-bold uppercase tracking-widest text-xs hover:border-emerald-500 hover:text-emerald-400 transition-all">
+            Связаться
+          </a>
+        </div>
       </div>
     </section>
   );
