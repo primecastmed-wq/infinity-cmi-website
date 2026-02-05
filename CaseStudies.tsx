@@ -1,24 +1,50 @@
-
 import React from 'react';
 
 const CASE_STUDIES = [
   {
     client: "Металлург Плюс",
     industry: "Производство",
-    result: "Предотвращено банкротство, долг в 2 млрд ₽ реструктуризирован за 4 месяца.",
-    img: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=2069"
+    result: "Предотвращено банкротство, долг в 2 млрд ₽ реструктуризирован за 4 месяца."
   },
   {
     client: "InnoCloud Systems",
     industry: "IT / SaaS",
-    result: "Восстановление репутации после масштабной утечки данных, рост акций на 15%.",
-    img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=2070"
+    result: "Восстановление репутации после масштабной утечки данных, рост акций на 15%."
   },
   {
     client: "Retail Matrix",
     industry: "Ритейл",
-    result: "Ликвидация кассового разрыва в 500 млн ₽ через пересмотр логистики и закупок.",
-    img: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=2070"
+    result: "Ликвидация кассового разрыва в 500 млн ₽ через пересмотр логистики и закупок."
+  },
+  {
+    client: "Quantum Logistics",
+    industry: "Логистика",
+    result: "Оптимизация цепочек поставок сократила издержки на 30%."
+  },
+  {
+    client: "EcoTech Agro",
+    industry: "Агро",
+    result: "Внедрение автономных систем повысило урожайность на 25%."
+  },
+  {
+    client: "FinGuard Banking",
+    industry: "Финансы",
+    result: "Цифровая трансформация привела к увеличению клиентской базы на 40%."
+  },
+  {
+    client: "HealthWave Clinics",
+    industry: "Медицина",
+    result: "Автоматизация процессов сократила время ожидания пациентов на 50%."
+  },
+  {
+    client: "EduPro Learning",
+    industry: "Образование",
+    result: "Создание онлайн-платформы увеличило количество учеников вдвое."
+  },
+  {
+    client: "AeroDynamics",
+    industry: "Аэрокосмическая",
+    result: "Улучшение процессов позволило снизить издержки на обслуживание на 15%."
   }
 ];
 
@@ -41,14 +67,6 @@ const CaseStudies: React.FC = () => {
         <div className="grid lg:grid-cols-3 gap-12">
           {CASE_STUDIES.map((c, idx) => (
             <div key={idx} className="group cursor-pointer">
-              <div className="relative overflow-hidden aspect-[3/4] mb-8 bg-black">
-                <img 
-                  src={c.img} 
-                  alt={c.client}
-                  className="absolute inset-0 w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                />
-                <div className="absolute inset-0 border border-white/10 m-4 pointer-events-none"></div>
-              </div>
               <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-3">{c.industry}</div>
               <h4 className="text-2xl font-bold mb-4">{c.client}</h4>
               <p className="text-slate-500 font-light leading-relaxed">{c.result}</p>
