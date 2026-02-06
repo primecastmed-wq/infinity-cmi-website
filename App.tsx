@@ -22,6 +22,7 @@ const App: React.FC = () => {
 
   const navigateToHome = () => { setView('home'); setSelectedServiceId(null); setSelectedPostId(null); };
   const navigateToService = (id: string) => { setSelectedServiceId(id); setView('service'); };
+  const navigateToServicesSection = () => handleSectionClick('services');
   const navigateToBlog = () => setView('blog');
   const navigateToRiskMap = () => setView('risk-map');
   const navigateToWhyUs = () => setView('why-us');
@@ -104,7 +105,7 @@ const App: React.FC = () => {
           <Suspense fallback={<div className="py-24 text-center">Загрузка...</div>}>
             <LazyServiceDetail 
               serviceId={selectedServiceId || ''} 
-              onBack={navigateToHome} 
+              onBack={navigateToServicesSection} 
               onConsultClick={() => setIsAiOpen(true)}
             />
           </Suspense>

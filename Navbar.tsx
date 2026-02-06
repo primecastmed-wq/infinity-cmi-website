@@ -86,6 +86,36 @@ const Navbar: React.FC<NavbarProps> = ({
           <div className={`h-0.5 transition-all duration-300 ${isLightMode ? 'bg-black' : 'bg-white'} ${isMobileMenuOpen ? 'w-8 -rotate-45 -translate-y-2.5' : 'w-6'}`}></div>
         </button>
       </div>
+
+      {isMobileMenuOpen && (
+        <div className={`lg:hidden absolute top-full left-0 right-0 ${isLightMode ? 'bg-white/95 text-black' : 'bg-black/95 text-white'} backdrop-blur-md border-t border-white/10`}>
+          <div className="container mx-auto px-6 py-8 space-y-6">
+            <button onClick={() => handleMobileNav(onWhyUsClick || onHomeClick)} className="block w-full text-left text-sm font-bold uppercase tracking-widest">
+              О нас
+            </button>
+            <button onClick={() => handleMobileNav(onUnitEconomicsClick || onHomeClick)} className="block w-full text-left text-sm font-bold uppercase tracking-widest text-emerald-500">
+              Ваша прибыль
+            </button>
+            <button onClick={() => handleMobileNav(onRoadmapClick || onHomeClick)} className="block w-full text-left text-sm font-bold uppercase tracking-widest">
+              Этапы роста
+            </button>
+            <button onClick={() => handleMobileNav(onServicesClick)} className="block w-full text-left text-sm font-bold uppercase tracking-widest">
+              Решения
+            </button>
+            <button onClick={() => handleMobileNav(onBlogClick)} className="block w-full text-left text-sm font-bold uppercase tracking-widest">
+              База знаний
+            </button>
+            <div className="pt-4 border-t border-white/10 space-y-3">
+              <button onClick={() => handleMobileNav(onContactClick)} className="block w-full text-left text-sm font-bold uppercase tracking-widest">
+                Контакты
+              </button>
+              <button onClick={() => handleMobileNav(onConsultClick)} className="block w-full text-left text-sm font-bold uppercase tracking-widest">
+                Связаться с консультантом
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };
