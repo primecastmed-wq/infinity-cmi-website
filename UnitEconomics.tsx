@@ -104,6 +104,16 @@ const UnitEconomics: React.FC<{ onConsultClick: () => void }> = ({ onConsultClic
                 <div className="text-sm md:text-base whitespace-pre-wrap leading-relaxed">
                   {analysis || "Нажмите «ПРОВЕРИТЬ ПРИБЫЛЬНОСТЬ», чтобы получить развернутый вывод."}
                 </div>
+                <div className="p-4 rounded-xl border border-amber-200 bg-amber-50 text-amber-900 text-xs md:text-sm leading-relaxed">
+                  Важно: расчет ориентировочный. Цифры могут отличаться в реальном бизнесе из-за сезонности, структуры затрат и качества трафика.
+                  Чтобы получить развернутую стратегию под ваш кейс, запишитесь на консультацию.
+                </div>
+                <button
+                  onClick={onConsultClick}
+                  className="w-full md:w-auto bg-black text-white px-6 py-4 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-slate-800 transition-all"
+                >
+                  Записаться на консультацию
+                </button>
               </div>
             )}
           </div>
