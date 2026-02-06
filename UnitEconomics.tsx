@@ -58,6 +58,44 @@ const UnitEconomics: React.FC<{ onConsultClick: () => void }> = ({ onConsultClic
     ].filter(Boolean).join('\n');
   };
 
+  const renderAnalysis = (text: string) => {
+    const lines = text.split('\n').map(line => line.trim()).filter(Boolean);
+
+    return (
+      <div className="space-y-3">
+        {lines.map((raw, i) => {
+          const line = raw
+            .replace(/^#{1,6}\s*/, '')
+            .replace(/^\*\s+/, '')
+            .replace(/^\d+\)\s+/, '')
+            .replace(/\*\*/g, '')
+            .replace(/^[-]\s+/, '');
+
+          const isHeading =
+            /^результаты$/i.test(line) ||
+            /^диагностика$/i.test(line) ||
+            /^рекомендации$/i.test(line) ||
+            /^риски/i.test(line) ||
+            /^важно/i.test(line);
+
+          if (isHeading) {
+            return (
+              <div key={i} className="text-xs font-bold uppercase tracking-widest text-slate-500 pt-2">
+                {line}
+              </div>
+            );
+          }
+
+          return (
+            <p key={i} className="text-sm md:text-base leading-relaxed text-slate-800">
+              {line}
+            </p>
+          );
+        })}
+      </div>
+    );
+  };
+
   useEffect(() => {
     const initialData: Record<string, any> = {};
     NICHES[niche].fields.forEach(f => { initialData[f.key] = f.defaultValue; });
@@ -102,7 +140,7 @@ const UnitEconomics: React.FC<{ onConsultClick: () => void }> = ({ onConsultClic
                   </div>
                 )}
                 <div className="text-sm md:text-base whitespace-pre-wrap leading-relaxed">
-                  {analysis || "Нажмите «ПРОВЕРИТЬ ПРИБЫЛЬНОСТЬ», чтобы получить развернутый вывод."}
+                  {analysis ? renderAnalysis(analysis) : "Нажмите «ПРОВЕРИТЬ ПРИБЫЛЬНОСТЬ», чтобы получить развернутый вывод."}
                 </div>
                 <div className="p-4 rounded-xl border border-amber-200 bg-amber-50 text-amber-900 text-xs md:text-sm leading-relaxed">
                   Важно: расчет ориентировочный. Цифры могут отличаться в реальном бизнесе из-за сезонности, структуры затрат и качества трафика.
