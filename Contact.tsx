@@ -71,14 +71,14 @@ const Contact: React.FC = () => {
                 <div className="w-px h-10 bg-emerald-500"></div>
                 <div>
                   <div className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-2">Технический узел</div>
-                  <div className="text-xl font-medium">admin@cmi-company.ru</div>
+                  <div className="text-xl font-medium">cmi.company@yandex.ru</div>
                 </div>
               </div>
               <div className="flex gap-6">
                 <div className="w-px h-10 bg-white/20"></div>
                 <div>
                   <div className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-2">Горячая линия</div>
-                  <div className="text-xl font-medium">+7 (495) 000-00-00</div>
+                  <div className="text-xl font-medium">79193995141</div>
                 </div>
               </div>
             </div>
