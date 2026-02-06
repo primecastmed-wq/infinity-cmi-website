@@ -70,6 +70,14 @@ const WhyUs: React.FC<{ onConsultClick: () => void }> = ({ onConsultClick }) => 
           <h1 className="text-4xl md:text-8xl font-serif font-bold mb-8 leading-tight">
             Пирамида <br /> <span className="italic text-slate-500">бизнес-задач</span>
           </h1>
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 max-w-3xl">
+            <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-500 mb-4">Экспертиза команды</h3>
+            <p className="text-slate-300 text-sm md:text-base leading-relaxed">
+              Специалисты CMI | Infinity имеют профильное высшее образование, дипломы и отраслевые сертификаты, включая MBA.
+              Команда сочетает стратегическую и операционную экспертизу, полученную в работе с крупными корпорациями и
+              сложными проектами в условиях высокой ответственности за финансовый результат.
+            </p>
+          </div>
         </div>
 
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
