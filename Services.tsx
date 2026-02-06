@@ -1,9 +1,9 @@
 
 import React from 'react';
 
-const TELEGRAM_BOT_URL = "https://t.me/Help_agent007_bot";
+export const TELEGRAM_BOT_URL = "https://t.me/Help_agent007_bot";
 
-const buildTelegramStartLink = (serviceId: string) => {
+export const buildTelegramStartLink = (serviceId: string) => {
   const payload = `service_${serviceId}`.replace(/[^a-zA-Z0-9_]/g, '_').slice(0, 64);
   return `${TELEGRAM_BOT_URL}?start=${payload}`;
 };
@@ -18,23 +18,37 @@ export const SERVICES_DATA = [
   { id: "crisis-support", title: "Оперативное сопровождение", description: "Работаем с собственником 1:1, еженедельно корректируем курс по фактическим данным.", tag: "🧯 Сопровождение" },
   { id: "recovery-growth", title: "Выход из кризиса и рост", description: "Фиксируем бизнес, восстанавливаем и готовим к росту или продаже так, чтобы не вернуться в кризис.", tag: "🚀 Рост" },];
 
-const Services: React.FC = () => {
+interface ServicesProps {
+  onServiceClick: (id: string) => void;
+}
+
+const Services: React.FC<ServicesProps> = ({ onServiceClick }) => {
   return (
     <section id="services" className="py-32 bg-white text-black">
       <div className="container mx-auto px-6">
         <h3 className="text-4xl font-serif font-bold mb-12">Наши решения</h3>
         <div className="grid md:grid-cols-3 gap-8">
           {SERVICES_DATA.map((s) => (
-            <a
-              key={s.id}
-              href={buildTelegramStartLink(s.id)}
-              target="_blank"
-              rel="noreferrer"
-              className="p-10 bg-slate-50 hover:bg-black hover:text-white border transition-all text-left block"
-            >
+            <div key={s.id} className="p-10 bg-slate-50 hover:bg-black hover:text-white border transition-all text-left">
               <h4 className="text-2xl font-bold mb-4">{s.title}</h4>
-              <p className="opacity-70">{s.description}</p>
-            </a>
+              <p className="opacity-70 mb-8">{s.description}</p>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <button
+                  onClick={() => onServiceClick(s.id)}
+                  className="px-5 py-3 bg-black text-white text-[10px] font-bold uppercase tracking-widest hover:bg-emerald-500 hover:text-black transition-all"
+                >
+                  Подробнее
+                </button>
+                <a
+                  href={buildTelegramStartLink(s.id)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-5 py-3 border border-black/30 text-black text-[10px] font-bold uppercase tracking-widest hover:border-emerald-500 hover:text-emerald-500 transition-all text-center"
+                >
+                  Написать в Telegram
+                </a>
+              </div>
+            </div>
           ))}
         </div>
       </div>

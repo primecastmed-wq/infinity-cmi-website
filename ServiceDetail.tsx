@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { SERVICES_DATA, buildTelegramStartLink } from './Services.tsx';
 
 interface ServiceDetailProps {
   serviceId: string;
@@ -102,8 +103,27 @@ const DETAILS: Record<string, {
   }
 };
 
+const buildFallbackDetail = (serviceId: string) => {
+  const service = SERVICES_DATA.find(s => s.id === serviceId);
+  if (!service) return null;
+
+  return {
+    title: service.title,
+    tag: service.tag,
+    heroText: service.description,
+    description: service.description,
+    pros: [
+      "Четкая диагностика текущего состояния",
+      "Конкретный план действий на 30-60 дней",
+      "Фокус на быстрый эффект и управляемый риск"
+    ],
+    whyNow: "Своевременное решение снижает потери и дает быстрый управленческий эффект.",
+    stats: [{ label: "Срок старта", value: "7–14 дн." }, { label: "Фокус", value: "Результат" }]
+  };
+};
+
 const ServiceDetail: React.FC<ServiceDetailProps> = ({ serviceId, onBack, onConsultClick }) => {
-  const data = DETAILS[serviceId];
+  const data = DETAILS[serviceId] || buildFallbackDetail(serviceId);
 
   if (!data) return <div className="pt-32 p-8">Service not found</div>;
 
@@ -169,6 +189,14 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ serviceId, onBack, onCons
                 Забронировать стратегическую сессию
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
               </button>
+              <a
+                href={buildTelegramStartLink(serviceId)}
+                target="_blank"
+                rel="noreferrer"
+                className="w-full border border-white/30 text-white py-5 font-bold uppercase tracking-widest text-xs hover:border-emerald-500 hover:text-emerald-400 transition-all flex items-center justify-center gap-3"
+              >
+                Написать в Telegram
+              </a>
               <p className="text-[9px] text-center text-slate-500 uppercase tracking-widest font-bold">Осталось 2 слота на текущую неделю</p>
             </div>
           </div>
