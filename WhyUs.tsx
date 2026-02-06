@@ -81,26 +81,26 @@ const WhyUs: React.FC<{ onConsultClick: () => void }> = ({ onConsultClick }) => 
               <div>
                 <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-2">Международные школы</h4>
                 <ul className="space-y-1">
-                  <li>Harvard Business School - США</li>
-                  <li>Stanford Graduate School of Business - США</li>
-                  <li>The Wharton School (University of Pennsylvania) - США</li>
-                  <li>INSEAD - Франция / Сингапур</li>
-                  <li>London Business School (LBS) - Великобритания</li>
-                  <li>MIT Sloan School of Management - США</li>
-                  <li>Columbia Business School - США</li>
-                  <li>Chicago Booth (University of Chicago) - США</li>
-                  <li>HEC Paris - Франция</li>
-                  <li>IESE Business School</li>
+                  <li><a href="https://www.hbs.edu/" target="_blank" rel="noreferrer" className="underline decoration-white/30 hover:decoration-white">Harvard Business School - США</a></li>
+                  <li><a href="https://www.gsb.stanford.edu/" target="_blank" rel="noreferrer" className="underline decoration-white/30 hover:decoration-white">Stanford Graduate School of Business - США</a></li>
+                  <li><a href="https://www.wharton.upenn.edu/" target="_blank" rel="noreferrer" className="underline decoration-white/30 hover:decoration-white">The Wharton School (University of Pennsylvania) - США</a></li>
+                  <li><a href="https://www.insead.edu/" target="_blank" rel="noreferrer" className="underline decoration-white/30 hover:decoration-white">INSEAD - Франция / Сингапур</a></li>
+                  <li><a href="https://www.london.edu/" target="_blank" rel="noreferrer" className="underline decoration-white/30 hover:decoration-white">London Business School (LBS) - Великобритания</a></li>
+                  <li><a href="https://mitsloan.mit.edu/" target="_blank" rel="noreferrer" className="underline decoration-white/30 hover:decoration-white">MIT Sloan School of Management - США</a></li>
+                  <li><a href="https://www.gsb.columbia.edu/" target="_blank" rel="noreferrer" className="underline decoration-white/30 hover:decoration-white">Columbia Business School - США</a></li>
+                  <li><a href="https://www.chicagobooth.edu/" target="_blank" rel="noreferrer" className="underline decoration-white/30 hover:decoration-white">Chicago Booth (University of Chicago) - США</a></li>
+                  <li><a href="https://www.hec.edu/en" target="_blank" rel="noreferrer" className="underline decoration-white/30 hover:decoration-white">HEC Paris - Франция</a></li>
+                  <li><a href="https://www.iese.edu/" target="_blank" rel="noreferrer" className="underline decoration-white/30 hover:decoration-white">IESE Business School - Испания</a></li>
                 </ul>
               </div>
               <div>
                 <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-2">Российские школы</h4>
                 <ul className="space-y-1">
-                  <li>Московская школа управления СКОЛКОВО - Москва</li>
-                  <li>Высшая школа бизнеса МГУ им. М. В. Ломоносова - Москва</li>
-                  <li>НИУ ВШЭ, факультет бизнеса - Москва</li>
-                  <li>Российская школа бизнеса / РАНХиГС - Москва</li>
-                  <li>СПбГУ, факультет менеджмента и бизнеса - Санкт-Петербург</li>
+                  <li><a href="https://www.skolkovo.ru/en/" target="_blank" rel="noreferrer" className="underline decoration-white/30 hover:decoration-white">Московская школа управления СКОЛКОВО - Москва</a></li>
+                  <li><a href="https://mgubs.ru/" target="_blank" rel="noreferrer" className="underline decoration-white/30 hover:decoration-white">Высшая школа бизнеса МГУ им. М. В. Ломоносова - Москва</a></li>
+                  <li><a href="https://gsb.hse.ru/" target="_blank" rel="noreferrer" className="underline decoration-white/30 hover:decoration-white">НИУ ВШЭ, факультет бизнеса - Москва</a></li>
+                  <li><a href="https://www.ranepa.ru/" target="_blank" rel="noreferrer" className="underline decoration-white/30 hover:decoration-white">Российская школа бизнеса / РАНХиГС - Москва</a></li>
+                  <li><a href="https://gsom.spbu.ru/en/" target="_blank" rel="noreferrer" className="underline decoration-white/30 hover:decoration-white">СПбГУ, факультет менеджмента и бизнеса - Санкт-Петербург</a></li>
                 </ul>
               </div>
             </div>
