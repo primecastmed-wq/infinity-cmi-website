@@ -72,7 +72,7 @@ const App: React.FC = () => {
           <div className="animate-in fade-in duration-1000">
             <Hero onCtaClick={() => setIsAiOpen(true)} />
             <Stats />
-            <Services onServiceClick={navigateToService} />
+            <Services />
             <CaseStudies />
             <Contact />
           </div>

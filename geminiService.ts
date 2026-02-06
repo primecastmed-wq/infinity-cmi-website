@@ -43,15 +43,15 @@ export const analyzeUnitEconomics = async (data: any, niche: string, url: string
   const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY });
   const modelName = MODEL_HIERARCHY[Math.min(attempt, MODEL_HIERARCHY.length - 1)];
   const dataString = Object.entries(data).map(([key, val]) => `${key}: ${val}`).join('\n');
-  const prompt = `Аудит прибыли (${niche}). Ресурс: ${url || 'н/д'}. Вводные данные:\n${dataString}. Требуется экспресс-анализ маржинальности и рисков.`;
+  const prompt = `Аудит прибыли (${niche}). Ресурс: ${url || 'н/д'}. Вводные данные:\n${dataString}. Требуется развернутый анализ маржинальности, узких мест и управленческих решений.`;
 
   try {
     const response = await ai.models.generateContent({
       model: modelName,
       contents: [{ role: 'user', parts: [{ text: prompt }] }],
       config: {
-        systemInstruction: "Вы — Head of Profitability CMI | Infinity. Ваш стиль — 'Математическая лаконичность'. Только цифры, выводы по прибыли и 1 критический риск. Без лишнего оформления.",
-        temperature: 0.1,
+        systemInstruction: "Вы — Head of Profitability CMI | Infinity. Нужен развернутый отчет. Структура: Результаты (ключевые цифры), Диагностика (что влияет на прибыль), Рекомендации (2–4 конкретных шага), Риски (1–2 пункта). Тон: экспертный, спокойный. Используйте короткие абзацы и четкие тезисы.",
+        temperature: 0.2,
       },
     });
     return response.text || "Ошибка генерации отчета.";

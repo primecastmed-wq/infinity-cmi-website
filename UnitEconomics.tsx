@@ -29,6 +29,35 @@ const UnitEconomics: React.FC<{ onConsultClick: () => void }> = ({ onConsultClic
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysis, setAnalysis] = useState<string | null>(null);
 
+  const formatNumber = (value: number, digits = 0) =>
+    new Intl.NumberFormat('ru-RU', { maximumFractionDigits: digits }).format(value);
+
+  const buildEcommerceMetrics = () => {
+    const adSpend = Number(formData.ad_spend || 0);
+    const visitors = Number(formData.visitors || 0);
+    const conv = Number(formData.conv_to_pay || 0);
+    const aov = Number(formData.aov || 0);
+    const cogs = Number(formData.cogs || 0);
+    const orders = Math.max(0, visitors * (conv / 100));
+
+    if (!orders || !aov) return null;
+
+    const revenue = orders * aov;
+    const grossProfit = orders * (aov - cogs);
+    const netProfit = revenue - orders * cogs - adSpend;
+    const cac = adSpend > 0 ? adSpend / orders : 0;
+    const romi = adSpend > 0 ? (netProfit / adSpend) * 100 : null;
+
+    return [
+      `Заказы: ${formatNumber(orders, 0)}`,
+      `Выручка: ${formatNumber(revenue, 0)} ₽`,
+      `Валовая прибыль: ${formatNumber(grossProfit, 0)} ₽`,
+      `Чистая прибыль (после рекламы): ${formatNumber(netProfit, 0)} ₽`,
+      `CAC: ${formatNumber(cac, 0)} ₽`,
+      romi !== null ? `ROMI: ${formatNumber(romi, 1)}%` : null,
+    ].filter(Boolean).join('\n');
+  };
+
   useEffect(() => {
     const initialData: Record<string, any> = {};
     NICHES[niche].fields.forEach(f => { initialData[f.key] = f.defaultValue; });
@@ -62,7 +91,21 @@ const UnitEconomics: React.FC<{ onConsultClick: () => void }> = ({ onConsultClic
             <button onClick={handleStartAnalysis} className="w-full bg-emerald-500 text-black py-5 rounded-xl font-bold uppercase tracking-widest text-xs mt-8">ПРОВЕРИТЬ ПРИБЫЛЬНОСТЬ</button>
           </div>
           <div className="bg-white text-black p-8 md:p-16 rounded-3xl min-h-[400px]">
-            {isAnalyzing ? <div className="animate-pulse">Считаем...</div> : analysis || "Введите данные слева"}
+            <h4 className="text-xs font-bold uppercase tracking-[0.4em] text-slate-400 mb-6">Подробный отчет</h4>
+            {isAnalyzing ? (
+              <div className="animate-pulse">Считаем...</div>
+            ) : (
+              <div className="space-y-6">
+                {niche === 'ecommerce' && (
+                  <div className="text-sm md:text-base whitespace-pre-wrap text-slate-700">
+                    {buildEcommerceMetrics() || "Введите данные слева, чтобы получить расчет."}
+                  </div>
+                )}
+                <div className="text-sm md:text-base whitespace-pre-wrap leading-relaxed">
+                  {analysis || "Нажмите «ПРОВЕРИТЬ ПРИБЫЛЬНОСТЬ», чтобы получить развернутый вывод."}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
