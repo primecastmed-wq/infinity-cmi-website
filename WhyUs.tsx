@@ -77,6 +77,33 @@ const WhyUs: React.FC<{ onConsultClick: () => void }> = ({ onConsultClick }) => 
               Команда сочетает стратегическую и операционную экспертизу, полученную в работе с крупными корпорациями и
               сложными проектами в условиях высокой ответственности за финансовый результат.
             </p>
+            <div className="mt-6 grid md:grid-cols-2 gap-6 text-slate-300 text-sm leading-relaxed">
+              <div>
+                <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-2">Международные школы</h4>
+                <ul className="space-y-1">
+                  <li>Harvard Business School - США</li>
+                  <li>Stanford Graduate School of Business - США</li>
+                  <li>The Wharton School (University of Pennsylvania) - США</li>
+                  <li>INSEAD - Франция / Сингапур</li>
+                  <li>London Business School (LBS) - Великобритания</li>
+                  <li>MIT Sloan School of Management - США</li>
+                  <li>Columbia Business School - США</li>
+                  <li>Chicago Booth (University of Chicago) - США</li>
+                  <li>HEC Paris - Франция</li>
+                  <li>IESE Business School</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-2">Российские школы</h4>
+                <ul className="space-y-1">
+                  <li>Московская школа управления СКОЛКОВО - Москва</li>
+                  <li>Высшая школа бизнеса МГУ им. М. В. Ломоносова - Москва</li>
+                  <li>НИУ ВШЭ, факультет бизнеса - Москва</li>
+                  <li>Российская школа бизнеса / РАНХиГС - Москва</li>
+                  <li>СПбГУ, факультет менеджмента и бизнеса - Санкт-Петербург</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
 
