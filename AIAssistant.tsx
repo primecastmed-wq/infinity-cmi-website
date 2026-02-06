@@ -22,6 +22,13 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ onClose }) => {
   const [contactInfo, setContactInfo] = useState({ name: '', contact: '' });
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  const withRequiredCta = (text: string, isVerified: boolean) => {
+    const cta = isVerified
+      ? "Следующий шаг: нужен полный аудит с командой CMI, чтобы не терять деньги на догадках. На консультации вы получите приоритеты, план внедрения и контрольные метрики под ваш кейс."
+      : "Важно: это общий ориентир. Чтобы получить надежный результат и не сжечь бюджет, нужен специалист и полный аудит CMI.";
+    return `${text}\n\n${cta}`;
+  };
+
   useEffect(() => {
     const domain = window.location.hostname;
     const sequence = [
@@ -80,7 +87,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ onClose }) => {
         return;
       }
 
-      setMessages(prev => [...prev, { role: 'model', text: response || '' }]);
+      setMessages(prev => [...prev, { role: 'model', text: withRequiredCta(response || '', isActuallyConverted) }]);
     } catch (err) {
       setMessages(prev => [...prev, { role: 'model', text: 'Ошибка узла. Повторите запрос через 10 секунд.' }]);
     } finally {
