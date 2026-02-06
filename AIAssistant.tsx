@@ -115,8 +115,21 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ onClose }) => {
       setShowLeadForm(false);
       setIsSubmitting(false);
       
-      setMessages(prev => [...prev, { role: 'model', text: `Верификация ${contactInfo.name} пройдена. Доступ к глубоким стратегиям CMI открыт.` }]);
-      setTimeout(() => handleSend(`Проанализируй глубже и дай 3 конкретных шага для: ${lastUserMsg}`, true), 800);
+      setMessages(prev => [...prev, { role: 'model', text: `Верификация ${contactInfo.name} пройдена. Доступ к расширенной стратегии CMI открыт.` }]);
+      setTimeout(
+        () =>
+          handleSend(
+            `Проанализируй глубже запрос: ${lastUserMsg}.
+            Дай:
+            1) минимум 2 дополнительных решения,
+            2) пошагово как решить проблему,
+            3) что обязательно проверить в бизнесе,
+            4) риски и почему здесь нужен профильный специалист,
+            5) финальный блок: зачем делать полный аудит с командой CMI и что это даст.`,
+            true
+          ),
+        800
+      );
     }
   };
 

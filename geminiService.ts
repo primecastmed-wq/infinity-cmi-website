@@ -12,11 +12,14 @@ const MODEL_HIERARCHY = [
 export const generateBusinessAdvice = async (userPrompt: string, hasLeads: boolean, attempt = 0): Promise<string> => {
   const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY });
   const modelName = MODEL_HIERARCHY[Math.min(attempt, MODEL_HIERARCHY.length - 1)];
+  const effectivePrompt = hasLeads
+    ? `${userPrompt}\n\nКонтекст: пользователь прошел верификацию контакта. Дай расширенный ответ: добавь минимум 2 альтернативных решения, подробный чек-лист проверки, и финальный блок с предложением полного аудита у команды CMI.`
+    : `${userPrompt}\n\nКонтекст: пользователь еще не прошел верификацию. В разделе рисков добавь прямой, но корректный намек, что для надежного результата нужен специалист и полный аудит.`;
   
   try {
     const response = await ai.models.generateContent({
       model: modelName,
-      contents: [{ role: 'user', parts: [{ text: userPrompt }] }],
+      contents: [{ role: 'user', parts: [{ text: effectivePrompt }] }],
       config: {
         systemInstruction: `Вы — Senior Full-Cycle Consultant CMI | Infinity.
         Пишите простым языком, без сложных терминов и перегруженных формулировок.
@@ -28,6 +31,9 @@ export const generateBusinessAdvice = async (userPrompt: string, hasLeads: boole
         3) Ожидаемый результат (кратко, в цифрах где возможно).
         4) Риски и как их снизить (1-2 пункта).
         Стиль: аккуратный, понятный, хорошо структурированный.
+        Обязательно:
+        - В рисках всегда показывайте, где нужен специалист и полный аудит.
+        - Если пользователь прошел верификацию, выдавайте расширенный разбор: +2 решения, чек-лист проверки и блок "что делаем с CMI".
         Не используйте списки со звездами, длинные абзацы и канцелярит.`,
         temperature: 0.3,
       },
