@@ -1,21 +1,12 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import Navbar from './Navbar.tsx';
 import Hero from './Hero.tsx';
 import Services from './Services.tsx';
-import ServiceDetail from './ServiceDetail.tsx';
 import CaseStudies from './CaseStudies.tsx';
-import AIAssistant from './AIAssistant.tsx';
 import Stats from './Stats.tsx';
 import Contact from './Contact.tsx';
 import Footer from './Footer.tsx';
-import Blog from './Blog.tsx';
-import BlogPostDetail from './BlogPostDetail.tsx';
-import RiskMap from './RiskMap.tsx';
-import WhyUs from './WhyUs.tsx';
-import Roadmap from './Roadmap.tsx';
-import UnitEconomics from './UnitEconomics.tsx';
-import LegalPages from './LegalPages.tsx';
 import CookieConsent from './CookieConsent.tsx';
 import './crmListener'; // CRM BroadcastChannel listener
 
@@ -52,6 +43,16 @@ const App: React.FC = () => {
     }
   };
 
+  const LazyServiceDetail = lazy(() => import('./ServiceDetail.tsx'));
+  const LazyAIAssistant = lazy(() => import('./AIAssistant.tsx'));
+  const LazyBlog = lazy(() => import('./Blog.tsx'));
+  const LazyBlogPostDetail = lazy(() => import('./BlogPostDetail.tsx'));
+  const LazyRiskMap = lazy(() => import('./RiskMap.tsx'));
+  const LazyWhyUs = lazy(() => import('./WhyUs.tsx'));
+  const LazyRoadmap = lazy(() => import('./Roadmap.tsx'));
+  const LazyUnitEconomics = lazy(() => import('./UnitEconomics.tsx'));
+  const LazyLegalPages = lazy(() => import('./LegalPages.tsx'));
+
   return (
     <div className="relative min-h-screen bg-white selection:bg-emerald-500 selection:text-white antialiased">
       <Navbar 
@@ -78,30 +79,62 @@ const App: React.FC = () => {
           </div>
         )}
         
-        {view === 'risk-map' && <RiskMap onConsultClick={() => setIsAiOpen(true)} />}
-        {view === 'why-us' && <WhyUs onConsultClick={() => setIsAiOpen(true)} />}
-        {view === 'roadmap' && <Roadmap onConsultClick={() => setIsAiOpen(true)} />}
-        {view === 'unit-economics' && <UnitEconomics onConsultClick={() => setIsAiOpen(true)} />}
+        {view === 'risk-map' && (
+          <Suspense fallback={<div className="py-24 text-center">Загрузка...</div>}>
+            <LazyRiskMap onConsultClick={() => setIsAiOpen(true)} />
+          </Suspense>
+        )}
+        {view === 'why-us' && (
+          <Suspense fallback={<div className="py-24 text-center">Загрузка...</div>}>
+            <LazyWhyUs onConsultClick={() => setIsAiOpen(true)} />
+          </Suspense>
+        )}
+        {view === 'roadmap' && (
+          <Suspense fallback={<div className="py-24 text-center">Загрузка...</div>}>
+            <LazyRoadmap onConsultClick={() => setIsAiOpen(true)} />
+          </Suspense>
+        )}
+        {view === 'unit-economics' && (
+          <Suspense fallback={<div className="py-24 text-center">Загрузка...</div>}>
+            <LazyUnitEconomics onConsultClick={() => setIsAiOpen(true)} />
+          </Suspense>
+        )}
         
         {view === 'service' && (
-          <ServiceDetail 
-            serviceId={selectedServiceId || ''} 
-            onBack={navigateToHome} 
-            onConsultClick={() => setIsAiOpen(true)}
-          />
+          <Suspense fallback={<div className="py-24 text-center">Загрузка...</div>}>
+            <LazyServiceDetail 
+              serviceId={selectedServiceId || ''} 
+              onBack={navigateToHome} 
+              onConsultClick={() => setIsAiOpen(true)}
+            />
+          </Suspense>
         )}
 
-        {view === 'blog' && <Blog onPostClick={navigateToPost} />}
+        {view === 'blog' && (
+          <Suspense fallback={<div className="py-24 text-center">Загрузка...</div>}>
+            <LazyBlog onPostClick={navigateToPost} />
+          </Suspense>
+        )}
         {view === 'post' && (
-          <BlogPostDetail 
-            postId={selectedPostId || ''} 
-            onBack={navigateToBlog} 
-            onConsultClick={() => setIsAiOpen(true)}
-          />
+          <Suspense fallback={<div className="py-24 text-center">Загрузка...</div>}>
+            <LazyBlogPostDetail 
+              postId={selectedPostId || ''} 
+              onBack={navigateToBlog} 
+              onConsultClick={() => setIsAiOpen(true)}
+            />
+          </Suspense>
         )}
 
-        {view === 'privacy' && <LegalPages type="privacy" onBack={navigateToHome} />}
-        {view === 'cookies' && <LegalPages type="cookies" onBack={navigateToHome} />}
+        {view === 'privacy' && (
+          <Suspense fallback={<div className="py-24 text-center">Загрузка...</div>}>
+            <LazyLegalPages type="privacy" onBack={navigateToHome} />
+          </Suspense>
+        )}
+        {view === 'cookies' && (
+          <Suspense fallback={<div className="py-24 text-center">Загрузка...</div>}>
+            <LazyLegalPages type="cookies" onBack={navigateToHome} />
+          </Suspense>
+        )}
       </main>
       
       <Footer 
@@ -125,7 +158,11 @@ const App: React.FC = () => {
         <span className="hidden md:block text-[10px] font-bold uppercase tracking-widest">AI Стратег</span>
       </button>
 
-      {isAiOpen && <AIAssistant onClose={() => setIsAiOpen(false)} />}
+      {isAiOpen && (
+        <Suspense fallback={null}>
+          <LazyAIAssistant onClose={() => setIsAiOpen(false)} />
+        </Suspense>
+      )}
     </div>
   );
 };
