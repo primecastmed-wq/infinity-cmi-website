@@ -20,7 +20,7 @@ const Hero: React.FC<HeroProps> = ({ onCtaClick }) => {
           <button onClick={onCtaClick} className="bg-white text-black px-8 py-5 font-bold uppercase tracking-widest text-xs hover:bg-emerald-500 hover:text-white transition-all">
             Запросить аудит проекта
           </button>
-          <a href="https://t.me/Help_agent007_bot" target="_blank" rel="noreferrer" className="inline-flex items-center justify-center border border-white/60 text-white px-8 py-5 font-bold uppercase tracking-widest text-xs hover:border-emerald-500 hover:text-emerald-400 transition-all">
+          <a href="https://t.me/Help_agent007_bot" target="_blank" rel="noreferrer" className="inline-flex items-center justify-center bg-blue-600 text-white px-8 py-5 font-bold uppercase tracking-widest text-xs hover:bg-blue-500 transition-all">
             Связаться
           </a>
         </div>
