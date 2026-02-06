@@ -18,7 +18,7 @@ const App: React.FC = () => {
   const [selectedPostId, setSelectedPostId] = useState<string | null>(null);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    window.scrollTo({ top: 0, behavior: 'auto' });
   }, [view, selectedServiceId, selectedPostId]);
 
   const navigateToHome = () => { setView('home'); setSelectedServiceId(null); setSelectedPostId(null); };
