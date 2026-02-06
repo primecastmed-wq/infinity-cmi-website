@@ -7,6 +7,7 @@ import CaseStudies from './CaseStudies.tsx';
 import Stats from './Stats.tsx';
 import Contact from './Contact.tsx';
 import Footer from './Footer.tsx';
+import Roadmap from './Roadmap.tsx';
 import CookieConsent from './CookieConsent.tsx';
 import './crmListener'; // CRM BroadcastChannel listener
 
@@ -50,7 +51,6 @@ const App: React.FC = () => {
   const LazyBlogPostDetail = lazy(() => import('./BlogPostDetail.tsx'));
   const LazyRiskMap = lazy(() => import('./RiskMap.tsx'));
   const LazyWhyUs = lazy(() => import('./WhyUs.tsx'));
-  const LazyRoadmap = lazy(() => import('./Roadmap.tsx'));
   const LazyUnitEconomics = lazy(() => import('./UnitEconomics.tsx'));
   const LazyLegalPages = lazy(() => import('./LegalPages.tsx'));
 
@@ -90,11 +90,7 @@ const App: React.FC = () => {
             <LazyWhyUs onConsultClick={() => setIsAiOpen(true)} />
           </Suspense>
         )}
-        {view === 'roadmap' && (
-          <Suspense fallback={<div className="py-24 text-center">Загрузка...</div>}>
-            <LazyRoadmap onConsultClick={() => setIsAiOpen(true)} />
-          </Suspense>
-        )}
+        {view === 'roadmap' && <Roadmap onConsultClick={() => setIsAiOpen(true)} />}
         {view === 'unit-economics' && (
           <Suspense fallback={<div className="py-24 text-center">Загрузка...</div>}>
             <LazyUnitEconomics onConsultClick={() => setIsAiOpen(true)} />
