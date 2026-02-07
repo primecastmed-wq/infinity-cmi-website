@@ -401,7 +401,7 @@ export const BLOG_POSTS: BlogPost[] = [
         </ul>
       </section>
     `,
-    date: "14 Марта, 2026",
+    date: "14 Января, 2026",
     author: "Елена Громова",
     category: "Продажи",
     readTime: "15 мин",
@@ -436,7 +436,7 @@ export const BLOG_POSTS: BlogPost[] = [
         </ul>
       </section>
     `,
-    date: "30 Мая, 2026",
+    date: "24 Января, 2026",
     author: "Игорь Разумов",
     category: "Продажи",
     readTime: "14 мин",
@@ -472,7 +472,7 @@ export const BLOG_POSTS: BlogPost[] = [
         </ul>
       </section>
     `,
-    date: "16 Августа, 2026",
+    date: "02 Февраля, 2026",
     author: "Марк Волков",
     category: "Операции",
     readTime: "16 мин",
@@ -503,7 +503,7 @@ export const BLOG_POSTS: BlogPost[] = [
         </ul>
       </section>
     `,
-    date: "07 Ноября, 2026",
+    date: "05 Февраля, 2026",
     author: "Елена Громова",
     category: "Инвестиции",
     readTime: "20 мин",
