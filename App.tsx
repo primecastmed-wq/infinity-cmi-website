@@ -11,6 +11,24 @@ import Roadmap from './Roadmap.tsx';
 import CookieConsent from './CookieConsent.tsx';
 import './crmListener'; // CRM BroadcastChannel listener
 
+const lazyWithRetry = <T extends React.ComponentType<any>>(
+  factory: () => Promise<{ default: T }>
+) =>
+  lazy(() =>
+    factory().catch((error) => {
+      const message = String(error?.message || '');
+      const isChunkError =
+        message.includes('Failed to fetch dynamically imported module') ||
+        message.includes('ChunkLoadError');
+
+      if (isChunkError && typeof window !== 'undefined') {
+        window.location.reload();
+      }
+
+      throw error;
+    })
+  );
+
 const App: React.FC = () => {
   const [isAiOpen, setIsAiOpen] = useState(false);
   const [view, setView] = useState<'home' | 'service' | 'blog' | 'post' | 'risk-map' | 'why-us' | 'roadmap' | 'unit-economics' | 'privacy' | 'cookies'>('home');
@@ -45,14 +63,14 @@ const App: React.FC = () => {
     }
   };
 
-  const LazyServiceDetail = lazy(() => import('./ServiceDetail.tsx'));
-  const LazyAIAssistant = lazy(() => import('./AIAssistant.tsx'));
-  const LazyBlog = lazy(() => import('./Blog.tsx'));
-  const LazyBlogPostDetail = lazy(() => import('./BlogPostDetail.tsx'));
-  const LazyRiskMap = lazy(() => import('./RiskMap.tsx'));
-  const LazyWhyUs = lazy(() => import('./WhyUs.tsx'));
-  const LazyUnitEconomics = lazy(() => import('./UnitEconomics.tsx'));
-  const LazyLegalPages = lazy(() => import('./LegalPages.tsx'));
+  const LazyServiceDetail = lazyWithRetry(() => import('./ServiceDetail.tsx'));
+  const LazyAIAssistant = lazyWithRetry(() => import('./AIAssistant.tsx'));
+  const LazyBlog = lazyWithRetry(() => import('./Blog.tsx'));
+  const LazyBlogPostDetail = lazyWithRetry(() => import('./BlogPostDetail.tsx'));
+  const LazyRiskMap = lazyWithRetry(() => import('./RiskMap.tsx'));
+  const LazyWhyUs = lazyWithRetry(() => import('./WhyUs.tsx'));
+  const LazyUnitEconomics = lazyWithRetry(() => import('./UnitEconomics.tsx'));
+  const LazyLegalPages = lazyWithRetry(() => import('./LegalPages.tsx'));
 
   return (
     <div className="relative min-h-screen bg-white selection:bg-emerald-500 selection:text-white antialiased">
