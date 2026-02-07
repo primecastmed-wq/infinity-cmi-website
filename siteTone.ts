@@ -31,6 +31,39 @@ const EN_MAP: Record<string, string> = {
   'Наши решения': 'Our Solutions',
   'Подробнее': 'Details',
   'Написать в Telegram': 'Message on Telegram',
+  'Загрузка...': 'Loading...',
+  'AI Стратег': 'AI Strategist',
+  'Где ваши деньги': 'Where Is Your Money',
+  'Рекламный бюджет (₽)': 'Ad Budget (RUB)',
+  'Посетители': 'Visitors',
+  'Конверсия (%)': 'Conversion (%)',
+  'Средний чек (₽)': 'Average Order Value (RUB)',
+  'Себестоимость (₽)': 'Cost per Item (RUB)',
+  'Заказы': 'Orders',
+  'Выручка': 'Revenue',
+  'Валовая прибыль': 'Gross Profit',
+  'Чистая прибыль (после рекламы)': 'Net Profit (after ads)',
+  'Срок': 'Timeline',
+  'Что проверяем': 'What We Check',
+  'Красные флаги': 'Red Flags',
+  'Что получаете': 'What You Get',
+  'Рост': 'Growth',
+  'как четкая технология': 'as a clear system',
+  'Скрыть': 'Hide',
+  'Обсудить': 'Discuss',
+  'Введите данные слева, чтобы получить расчет.': 'Enter numbers on the left to get the estimate.',
+  'Нажмите «ПРОВЕРИТЬ ПРИБЫЛЬНОСТЬ», чтобы получить развернутый вывод.': 'Press "CHECK PROFITABILITY" to get the full analysis.',
+  'Считаем...': 'Calculating...',
+  'Важно: расчет ориентировочный. Цифры могут отличаться в реальном бизнесе из-за сезонности, структуры затрат и качества трафика. Чтобы получить развернутую стратегию под ваш кейс, запишитесь на консультацию.': 'Important: this is an estimated calculation. Real figures may differ because of seasonality, cost structure, and traffic quality. For a full strategy tailored to your case, book a consultation.',
+  'Протокол связи CMI | Infinity активирован. Я готов провести экспресс-аудит вашей бизнес-модели. Какой вопрос сейчас в приоритете?': 'CMI | Infinity channel is online. I am ready to run a fast audit of your business model. What is your top priority now?',
+  'Доступ к закрытой базе': 'Access to Advanced Strategy',
+  'Для получения детализированного плана и консультации со стратегом CMI, подтвердите ваши контакты.': 'To unlock a detailed plan and strategy consultation with CMI, confirm your contacts.',
+  'Имя *': 'Name *',
+  'Telegram / Телефон *': 'Telegram / Phone *',
+  'Связаться со стратегом': 'Talk to Strategist',
+  'Опишите ваш запрос...': 'Describe your request...',
+  'Просчет стратегии...': 'Building strategy...',
+  'Оптимизация нейросети...': 'Optimizing model...',
 };
 
 const HUMAN_MAP: Record<string, string> = {
@@ -54,7 +87,52 @@ const HUMAN_MAP: Record<string, string> = {
   'Наши решения': 'Чем можем помочь',
   'Подробнее': 'Показать суть',
   'Написать в Telegram': 'Написать в Telegram',
+  'Загрузка...': 'Грузим, не кипишуй...',
+  'AI Стратег': 'AI Разбор',
+  'Рост': 'Рост без розовых очков',
+  'как четкая технология': 'как план, а не лотерея',
+  'Скрыть': 'Свернуть',
+  'Обсудить': 'Погнали в разбор',
+  'Введите данные слева, чтобы получить расчет.': 'Вбей цифры слева, посмотрим где утекает кэш.',
+  'Нажмите «ПРОВЕРИТЬ ПРИБЫЛЬНОСТЬ», чтобы получить развернутый вывод.': 'Жми кнопку, покажу где деньги уходят в отпуск без тебя.',
+  'Считаем...': 'Считаем, магии нет, только цифры...',
+  'Протокол связи CMI | Infinity активирован. Я готов провести экспресс-аудит вашей бизнес-модели. Какой вопрос сейчас в приоритете?': 'Связь есть. Давай без иллюзий: что болит в бизнесе прямо сейчас?',
+  'Доступ к закрытой базе': 'Доступ к серьезному разбору',
+  'Для получения детализированного плана и консультации со стратегом CMI, подтвердите ваши контакты.': 'Чтобы получить план без воды и разбор со стратегом, оставь контакт.',
+  'Имя *': 'Как к тебе обращаться *',
+  'Telegram / Телефон *': 'Телега или номер *',
+  'Связаться со стратегом': 'Ок, нужен разбор',
+  'Опишите ваш запрос...': 'Пиши по делу, что не работает...',
+  'Просчет стратегии...': 'Собираю план, без розовых очков...',
+  'Оптимизация нейросети...': 'Подкручиваю мозги, секунду...',
 };
+
+const EN_REPLACEMENTS: Array<[string, string]> = [
+  ['Проектируем будущее прибыли.', 'We design your future profit.'],
+  ['CMI | Infinity — стратегический партнер для тех, кто строит автономные системы.', 'CMI | Infinity is a strategic partner for teams building autonomous business systems.'],
+  ['Запросить аудит проекта', 'Request Project Audit'],
+  ['Связаться', 'Contact'],
+  ['Наши решения', 'Our Solutions'],
+  ['Подробнее', 'Details'],
+  ['Написать в Telegram', 'Message on Telegram'],
+  ['ПРОВЕРИТЬ ПРИБЫЛЬНОСТЬ', 'CHECK PROFITABILITY'],
+  ['Записаться на консультацию', 'Book a Consultation'],
+  ['Подробный отчет', 'Detailed Report'],
+  ['Где ваши деньги?', 'Where Is Your Money?'],
+  ['Важно', 'Important'],
+  ['Срок:', 'Timeline:'],
+];
+
+const HUMAN_REPLACEMENTS: Array<[string, string]> = [
+  ['Проектируем будущее прибыли.', 'Собираем прибыль так, чтобы касса не плакала.'],
+  ['Запросить аудит проекта', 'Хочу аудит без иллюзий'],
+  ['Связаться', 'Погнали разбирать'],
+  ['ПРОВЕРИТЬ ПРИБЫЛЬНОСТЬ', 'ПРОБИТЬ, ГДЕ ДЕНЬГИ'],
+  ['Подробный отчет', 'Разбор без занудства'],
+  ['Риски', 'Где вас может размотать рынок'],
+  ['Важно', 'Жесткая правда'],
+  ['Срок:', 'Сколько по времени:'],
+];
 
 export const getSiteTone = (): SiteTone => {
   const value = localStorage.getItem('siteTone');
@@ -71,10 +149,20 @@ const translateLine = (source: string, tone: SiteTone): string => {
   const map = tone === 'en' ? EN_MAP : HUMAN_MAP;
   const trimmed = source.trim();
   const replacement = map[trimmed];
-  if (!replacement) return source;
-  const leading = source.match(/^\s*/)?.[0] || '';
-  const trailing = source.match(/\s*$/)?.[0] || '';
-  return `${leading}${replacement}${trailing}`;
+  if (replacement) {
+    const leading = source.match(/^\s*/)?.[0] || '';
+    const trailing = source.match(/\s*$/)?.[0] || '';
+    return `${leading}${replacement}${trailing}`;
+  }
+  const pairs = tone === 'en' ? EN_REPLACEMENTS : HUMAN_REPLACEMENTS;
+  let transformed = source;
+  pairs.forEach(([from, to]) => {
+    transformed = transformed.split(from).join(to);
+  });
+  if (tone === 'human' && transformed !== source && transformed.length < 90 && !/[.!?]$/.test(transformed.trim())) {
+    transformed = `${transformed}.`;
+  }
+  return transformed;
 };
 
 export const applySiteTone = () => {
