@@ -9,6 +9,7 @@ import Contact from './Contact.tsx';
 import Footer from './Footer.tsx';
 import Roadmap from './Roadmap.tsx';
 import CookieConsent from './CookieConsent.tsx';
+import { applySiteTone } from './siteTone.ts';
 import './crmListener'; // CRM BroadcastChannel listener
 
 const App: React.FC = () => {
@@ -20,6 +21,16 @@ const App: React.FC = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'auto' });
   }, [view, selectedServiceId, selectedPostId]);
+
+  useEffect(() => {
+    applySiteTone();
+  }, [view, isAiOpen]);
+
+  useEffect(() => {
+    const onToneChange = () => applySiteTone();
+    window.addEventListener('siteToneChange', onToneChange);
+    return () => window.removeEventListener('siteToneChange', onToneChange);
+  }, []);
 
   const navigateToHome = () => { setView('home'); setSelectedServiceId(null); setSelectedPostId(null); };
   const navigateToService = (id: string) => { setSelectedServiceId(id); setView('service'); };
@@ -56,7 +67,6 @@ const App: React.FC = () => {
 
   return (
     <div className="relative min-h-screen bg-white selection:bg-emerald-500 selection:text-white antialiased">
-      <div id="google_translate_element" className="hidden" />
       <Navbar 
         onHomeClick={navigateToHome} 
         onBlogClick={navigateToBlog}

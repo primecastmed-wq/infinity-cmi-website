@@ -12,6 +12,9 @@ const MODEL_HIERARCHY = [
 export const generateBusinessAdvice = async (userPrompt: string, hasLeads: boolean, attempt = 0): Promise<string> => {
   const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY });
   const modelName = MODEL_HIERARCHY[Math.min(attempt, MODEL_HIERARCHY.length - 1)];
+  const siteTone = typeof window !== 'undefined' ? localStorage.getItem('siteTone') : 'ru';
+  const isHumanMode = siteTone === 'human';
+  const isEnglishMode = siteTone === 'en';
   const effectivePrompt = hasLeads
     ? `${userPrompt}\n\nКонтекст: пользователь прошел верификацию контакта. Дай расширенный ответ: добавь минимум 2 альтернативных решения, подробный чек-лист проверки, и финальный блок с предложением полного аудита у команды CMI.`
     : `${userPrompt}\n\nКонтекст: пользователь еще не прошел верификацию. В разделе рисков добавь прямой, но корректный намек, что для надежного результата нужен специалист и полный аудит.`;
@@ -25,7 +28,8 @@ export const generateBusinessAdvice = async (userPrompt: string, hasLeads: boole
         Пишите простым языком, без сложных терминов и перегруженных формулировок.
         Тон: уверенный, местами дерзкий, но без грубости и без токсичности.
         Поясняйте так, чтобы понял человек без профильного образования.
-        Если запрос на английском, отвечайте на простом разговорном английском (plain English), без сложных терминов и жаргона.
+        ${isHumanMode ? 'Режим HUMAN: пишите максимально по-человечески, разговорно и предельно просто.' : ''}
+        ${isEnglishMode ? 'Режим EN: отвечайте только на английском и только plain English.' : 'Если запрос на английском, отвечайте на простом разговорном английском (plain English), без сложных терминов и жаргона.'}
         Формат ответа всегда одинаковый:
         1) Короткий вывод (1-2 предложения).
         2) Что делать сейчас (3-5 конкретных шагов).

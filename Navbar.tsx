@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { getSiteTone, setSiteTone, type SiteTone } from './siteTone.ts';
 
 interface NavbarProps {
   onHomeClick: () => void;
@@ -28,31 +29,12 @@ const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const [scrolled, setScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isDomainLive, setIsDomainLive] = useState(false);
-  const [currentLang, setCurrentLang] = useState<'ru' | 'en'>('ru');
+  const [currentLang, setCurrentLang] = useState<SiteTone>('ru');
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
-    const host = window.location.hostname;
-    setIsDomainLive(host === 'cmi-company.ru' || host === 'www.cmi-company.ru');
-    setCurrentLang(document.cookie.includes('googtrans=/ru/en') ? 'en' : 'ru');
-
-    (window as any).googleTranslateElementInit = () => {
-      const google = (window as any).google;
-      if (!google?.translate?.TranslateElement) return;
-      new google.translate.TranslateElement(
-        { pageLanguage: 'ru', includedLanguages: 'ru,en', autoDisplay: false },
-        'google_translate_element'
-      );
-    };
-
-    if (!document.querySelector('script[src*="translate_a/element.js"]')) {
-      const script = document.createElement('script');
-      script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-      script.async = true;
-      document.body.appendChild(script);
-    }
+    setCurrentLang(getSiteTone());
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -63,26 +45,15 @@ const Navbar: React.FC<NavbarProps> = ({
     setIsMobileMenuOpen(false);
   };
 
-  const setLanguage = (lang: 'ru' | 'en') => {
+  const setLanguage = (lang: SiteTone) => {
     setCurrentLang(lang);
-    const cookieValue = lang === 'en' ? '/ru/en' : '/ru/ru';
-    document.cookie = `googtrans=${cookieValue};path=/`;
-    document.cookie = `googtrans=${cookieValue};path=/;domain=${window.location.hostname}`;
-
-    const combo = document.querySelector('.goog-te-combo') as HTMLSelectElement | null;
-    if (combo) {
-      combo.value = lang;
-      combo.dispatchEvent(new Event('change'));
-      return;
-    }
-    window.location.reload();
+    setSiteTone(lang);
+    window.dispatchEvent(new Event('siteToneChange'));
   };
 
   const isLightMode = scrolled || !isDark;
   const textColorClass = isLightMode ? 'text-black' : 'text-white';
   const subtextColorClass = isLightMode ? 'text-slate-500' : 'text-slate-400';
-  const activeLinkClass = isLightMode ? 'after:bg-black' : 'after:bg-white';
-
   return (
     <nav className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${scrolled ? 'bg-white/95 backdrop-blur-md py-4 shadow-sm border-b border-slate-100' : 'bg-transparent py-8'}`}>
       <div className="container mx-auto px-6 flex justify-between items-center">
@@ -127,6 +98,12 @@ const Navbar: React.FC<NavbarProps> = ({
           >
             EN
           </button>
+          <button
+            onClick={() => setLanguage('human')}
+            className={`px-3 py-2 text-[10px] font-bold uppercase tracking-widest border transition-all ${currentLang === 'human' ? 'bg-emerald-600 text-white border-emerald-600' : `${textColorClass} border-current/40`}`}
+          >
+            HUMAN
+          </button>
         </div>
 
         <button onClick={toggleMobileMenu} className="lg:hidden w-12 h-12 flex flex-col items-end justify-center gap-2 z-[110] relative focus:outline-none">
@@ -158,6 +135,7 @@ const Navbar: React.FC<NavbarProps> = ({
               <div className="flex gap-2">
                 <button onClick={() => setLanguage('ru')} className={`px-3 py-2 text-[10px] font-bold uppercase tracking-widest border ${currentLang === 'ru' ? 'bg-black text-white border-black' : 'border-current/40'}`}>RU</button>
                 <button onClick={() => setLanguage('en')} className={`px-3 py-2 text-[10px] font-bold uppercase tracking-widest border ${currentLang === 'en' ? 'bg-black text-white border-black' : 'border-current/40'}`}>EN</button>
+                <button onClick={() => setLanguage('human')} className={`px-3 py-2 text-[10px] font-bold uppercase tracking-widest border ${currentLang === 'human' ? 'bg-emerald-600 text-white border-emerald-600' : 'border-current/40'}`}>HUMAN</button>
               </div>
               <button onClick={() => handleMobileNav(onContactClick)} className="block w-full text-left text-sm font-bold uppercase tracking-widest">
                 Контакты
