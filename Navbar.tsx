@@ -1,6 +1,5 @@
 
 import React, { useState, useEffect } from 'react';
-import { getSiteTone, setSiteTone, type SiteTone } from './siteTone.ts';
 
 interface NavbarProps {
   onHomeClick: () => void;
@@ -29,13 +28,10 @@ const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const [scrolled, setScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [currentLang, setCurrentLang] = useState<SiteTone>('ru');
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
-    setCurrentLang(getSiteTone());
-
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -43,12 +39,6 @@ const Navbar: React.FC<NavbarProps> = ({
   const handleMobileNav = (action: () => void) => {
     action();
     setIsMobileMenuOpen(false);
-  };
-
-  const setLanguage = (lang: SiteTone) => {
-    setCurrentLang(lang);
-    setSiteTone(lang);
-    window.dispatchEvent(new Event('siteToneChange'));
   };
 
   const isLightMode = scrolled || !isDark;
@@ -85,27 +75,6 @@ const Navbar: React.FC<NavbarProps> = ({
           ))}
         </div>
 
-        <div className="hidden lg:flex items-center gap-2 mr-4">
-          <button
-            onClick={() => setLanguage('ru')}
-            className={`px-3 py-2 text-[10px] font-bold uppercase tracking-widest border transition-all ${currentLang === 'ru' ? 'bg-black text-white border-black' : `${textColorClass} border-current/40`}`}
-          >
-            RU
-          </button>
-          <button
-            onClick={() => setLanguage('en')}
-            className={`px-3 py-2 text-[10px] font-bold uppercase tracking-widest border transition-all ${currentLang === 'en' ? 'bg-black text-white border-black' : `${textColorClass} border-current/40`}`}
-          >
-            EN
-          </button>
-          <button
-            onClick={() => setLanguage('human')}
-            className={`px-3 py-2 text-[10px] font-bold uppercase tracking-widest border transition-all ${currentLang === 'human' ? 'bg-emerald-600 text-white border-emerald-600' : `${textColorClass} border-current/40`}`}
-          >
-            HUMAN
-          </button>
-        </div>
-
         <button onClick={toggleMobileMenu} className="lg:hidden w-12 h-12 flex flex-col items-end justify-center gap-2 z-[110] relative focus:outline-none">
           <div className={`h-0.5 transition-all duration-300 ${isLightMode ? 'bg-black' : 'bg-white'} ${isMobileMenuOpen ? 'w-8 rotate-45 translate-y-2.5' : 'w-8'}`}></div>
           <div className={`h-0.5 transition-all duration-300 ${isLightMode ? 'bg-black' : 'bg-white'} ${isMobileMenuOpen ? 'opacity-0' : 'w-5'}`}></div>
@@ -132,11 +101,6 @@ const Navbar: React.FC<NavbarProps> = ({
               База знаний
             </button>
             <div className="pt-4 border-t border-white/10 space-y-3">
-              <div className="flex gap-2">
-                <button onClick={() => setLanguage('ru')} className={`px-3 py-2 text-[10px] font-bold uppercase tracking-widest border ${currentLang === 'ru' ? 'bg-black text-white border-black' : 'border-current/40'}`}>RU</button>
-                <button onClick={() => setLanguage('en')} className={`px-3 py-2 text-[10px] font-bold uppercase tracking-widest border ${currentLang === 'en' ? 'bg-black text-white border-black' : 'border-current/40'}`}>EN</button>
-                <button onClick={() => setLanguage('human')} className={`px-3 py-2 text-[10px] font-bold uppercase tracking-widest border ${currentLang === 'human' ? 'bg-emerald-600 text-white border-emerald-600' : 'border-current/40'}`}>HUMAN</button>
-              </div>
               <button onClick={() => handleMobileNav(onContactClick)} className="block w-full text-left text-sm font-bold uppercase tracking-widest">
                 Контакты
               </button>
