@@ -29,12 +29,31 @@ const Navbar: React.FC<NavbarProps> = ({
   const [scrolled, setScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDomainLive, setIsDomainLive] = useState(false);
+  const [currentLang, setCurrentLang] = useState<'ru' | 'en'>('ru');
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     const host = window.location.hostname;
     setIsDomainLive(host === 'cmi-company.ru' || host === 'www.cmi-company.ru');
+    setCurrentLang(document.cookie.includes('googtrans=/ru/en') ? 'en' : 'ru');
+
+    (window as any).googleTranslateElementInit = () => {
+      const google = (window as any).google;
+      if (!google?.translate?.TranslateElement) return;
+      new google.translate.TranslateElement(
+        { pageLanguage: 'ru', includedLanguages: 'ru,en', autoDisplay: false },
+        'google_translate_element'
+      );
+    };
+
+    if (!document.querySelector('script[src*="translate_a/element.js"]')) {
+      const script = document.createElement('script');
+      script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+      script.async = true;
+      document.body.appendChild(script);
+    }
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -42,6 +61,21 @@ const Navbar: React.FC<NavbarProps> = ({
   const handleMobileNav = (action: () => void) => {
     action();
     setIsMobileMenuOpen(false);
+  };
+
+  const setLanguage = (lang: 'ru' | 'en') => {
+    setCurrentLang(lang);
+    const cookieValue = lang === 'en' ? '/ru/en' : '/ru/ru';
+    document.cookie = `googtrans=${cookieValue};path=/`;
+    document.cookie = `googtrans=${cookieValue};path=/;domain=${window.location.hostname}`;
+
+    const combo = document.querySelector('.goog-te-combo') as HTMLSelectElement | null;
+    if (combo) {
+      combo.value = lang;
+      combo.dispatchEvent(new Event('change'));
+      return;
+    }
+    window.location.reload();
   };
 
   const isLightMode = scrolled || !isDark;
@@ -80,6 +114,21 @@ const Navbar: React.FC<NavbarProps> = ({
           ))}
         </div>
 
+        <div className="hidden lg:flex items-center gap-2 mr-4">
+          <button
+            onClick={() => setLanguage('ru')}
+            className={`px-3 py-2 text-[10px] font-bold uppercase tracking-widest border transition-all ${currentLang === 'ru' ? 'bg-black text-white border-black' : `${textColorClass} border-current/40`}`}
+          >
+            RU
+          </button>
+          <button
+            onClick={() => setLanguage('en')}
+            className={`px-3 py-2 text-[10px] font-bold uppercase tracking-widest border transition-all ${currentLang === 'en' ? 'bg-black text-white border-black' : `${textColorClass} border-current/40`}`}
+          >
+            EN
+          </button>
+        </div>
+
         <button onClick={toggleMobileMenu} className="lg:hidden w-12 h-12 flex flex-col items-end justify-center gap-2 z-[110] relative focus:outline-none">
           <div className={`h-0.5 transition-all duration-300 ${isLightMode ? 'bg-black' : 'bg-white'} ${isMobileMenuOpen ? 'w-8 rotate-45 translate-y-2.5' : 'w-8'}`}></div>
           <div className={`h-0.5 transition-all duration-300 ${isLightMode ? 'bg-black' : 'bg-white'} ${isMobileMenuOpen ? 'opacity-0' : 'w-5'}`}></div>
@@ -106,6 +155,10 @@ const Navbar: React.FC<NavbarProps> = ({
               База знаний
             </button>
             <div className="pt-4 border-t border-white/10 space-y-3">
+              <div className="flex gap-2">
+                <button onClick={() => setLanguage('ru')} className={`px-3 py-2 text-[10px] font-bold uppercase tracking-widest border ${currentLang === 'ru' ? 'bg-black text-white border-black' : 'border-current/40'}`}>RU</button>
+                <button onClick={() => setLanguage('en')} className={`px-3 py-2 text-[10px] font-bold uppercase tracking-widest border ${currentLang === 'en' ? 'bg-black text-white border-black' : 'border-current/40'}`}>EN</button>
+              </div>
               <button onClick={() => handleMobileNav(onContactClick)} className="block w-full text-left text-sm font-bold uppercase tracking-widest">
                 Контакты
               </button>

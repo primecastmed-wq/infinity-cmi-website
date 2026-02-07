@@ -56,6 +56,7 @@ const App: React.FC = () => {
 
   return (
     <div className="relative min-h-screen bg-white selection:bg-emerald-500 selection:text-white antialiased">
+      <div id="google_translate_element" className="hidden" />
       <Navbar 
         onHomeClick={navigateToHome} 
         onBlogClick={navigateToBlog}
