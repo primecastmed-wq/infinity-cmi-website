@@ -96,6 +96,10 @@ const Contact: React.FC = () => {
               </div>
             )}
 
+            <h3 className="text-3xl md:text-4xl font-serif font-bold text-black mb-8 leading-tight">
+              Запросить антикризисный разбор бизнеса
+            </h3>
+
             <form className="space-y-8" onSubmit={handleSubmit}>
               <div className="grid md:grid-cols-2 gap-8">
                 <div className="space-y-2">
@@ -155,7 +159,7 @@ const Contact: React.FC = () => {
                 <textarea 
                   rows={3} 
                   className="w-full border-b border-slate-200 py-3 focus:outline-none focus:border-black transition-all resize-none font-medium" 
-                  placeholder="Домен, сфера деятельности, текущие трудности..."
+                  placeholder="Сфера, оборот, главная проблема сейчас и сколько времени у вас есть"
                   value={formData.details}
                   onChange={e => setFormData({...formData, details: e.target.value})}
                 ></textarea>
@@ -167,7 +171,7 @@ const Contact: React.FC = () => {
                   disabled={isSubmitting}
                   className="bg-black text-white w-full py-6 font-bold uppercase tracking-widest text-sm hover:bg-slate-800 transition-all disabled:opacity-50 shadow-lg"
                 >
-                  {isSubmitting ? 'ОТПРАВКА...' : 'ЗАПРОСИТЬ АНАЛИЗ СИСТЕМ'}
+                  {isSubmitting ? 'ОТПРАВКА...' : 'ЗАПРОСИТЬ АНТИКРИЗИСНЫЙ РАЗБОР'}
                 </button>
                 <p className="text-[8px] text-slate-400 leading-relaxed text-center uppercase tracking-widest font-bold">
                   Нажимая кнопку, вы даете согласие на обработку персональных данных в соответствии с 152-ФЗ и политикой CMI.

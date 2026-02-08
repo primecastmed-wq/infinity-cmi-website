@@ -58,6 +58,13 @@ const CaseStudies: React.FC = () => {
             <h3 className="text-4xl md:text-5xl font-serif font-bold text-black">
               Кейсы, где мы <br /> изменили правила игры.
             </h3>
+            <p className="mt-6 text-slate-600 text-lg font-light leading-relaxed">
+              Мы работаем с бизнесами разного масштаба -
+              <br />
+              от ситуаций «сегодня не хватает на зарплаты»
+              <br />
+              до реструктуризации миллиардных обязательств.
+            </p>
           </div>
           <button className="px-8 py-4 border-2 border-black text-black font-bold uppercase tracking-widest text-xs hover:bg-black hover:text-white transition-all">
             Все кейсы
