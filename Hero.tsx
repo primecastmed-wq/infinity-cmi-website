@@ -11,7 +11,7 @@ const Hero: React.FC<HeroProps> = ({ onCtaClick }) => {
       <div className="container mx-auto px-6 relative z-10">
         <h1 className="text-4xl sm:text-7xl md:text-8xl lg:text-9xl font-serif font-bold leading-[0.95] mb-8 text-balance">
           Выводим бизнес из кризиса <br />
-          <span className="italic text-slate-500">и возвращаем</span> управляемость и прибыль
+          и возвращаем управляемость и прибыль
         </h1>
         <p className="text-base md:text-2xl text-slate-400 mb-10 max-w-3xl font-light">
           Антикризисная диагностика, реструктуризация и сопровождение собственников.
