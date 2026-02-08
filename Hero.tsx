@@ -10,8 +10,7 @@ const Hero: React.FC<HeroProps> = ({ onCtaClick }) => {
     <section className="relative min-h-[100dvh] flex flex-col justify-center overflow-hidden bg-black text-white pt-24 pb-12 md:pt-32 md:pb-20">
       <div className="container mx-auto px-6 relative z-10">
         <h1 className="text-4xl sm:text-7xl md:text-8xl lg:text-9xl font-serif font-bold leading-[0.95] mb-8 text-balance">
-          Выводим бизнес из кризиса <br />
-          и возвращаем управляемость и прибыль
+          Выводим бизнес из кризиса
         </h1>
         <p className="text-base md:text-2xl text-slate-400 mb-10 max-w-3xl font-light">
           Антикризисная диагностика, реструктуризация и сопровождение собственников.
