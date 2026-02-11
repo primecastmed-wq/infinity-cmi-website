@@ -11,6 +11,27 @@ import Roadmap from './Roadmap.tsx';
 import CookieConsent from './CookieConsent.tsx';
 import './crmListener'; // CRM BroadcastChannel listener
 
+type View =
+  | 'home'
+  | 'service'
+  | 'blog'
+  | 'post'
+  | 'risk-map'
+  | 'why-us'
+  | 'roadmap'
+  | 'unit-economics'
+  | 'privacy'
+  | 'cookies'
+  | 'unsubscribe';
+
+const getInitialView = (): View => {
+  const path = window.location.pathname.toLowerCase();
+  if (path === '/unsubscribe' || path === '/unsubscribed' || path === '/unsubscribe-materials') {
+    return 'unsubscribe';
+  }
+  return 'home';
+};
+
 const lazyWithRetry = <T extends React.ComponentType<any>>(
   factory: () => Promise<{ default: T }>
 ) =>
@@ -31,7 +52,7 @@ const lazyWithRetry = <T extends React.ComponentType<any>>(
 
 const App: React.FC = () => {
   const [isAiOpen, setIsAiOpen] = useState(false);
-  const [view, setView] = useState<'home' | 'service' | 'blog' | 'post' | 'risk-map' | 'why-us' | 'roadmap' | 'unit-economics' | 'privacy' | 'cookies'>('home');
+  const [view, setView] = useState<View>(getInitialView());
   const [selectedServiceId, setSelectedServiceId] = useState<string | null>(null);
   const [selectedPostId, setSelectedPostId] = useState<string | null>(null);
 
@@ -39,7 +60,14 @@ const App: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'auto' });
   }, [view, selectedServiceId, selectedPostId]);
 
-  const navigateToHome = () => { setView('home'); setSelectedServiceId(null); setSelectedPostId(null); };
+  const navigateToHome = () => {
+    setView('home');
+    setSelectedServiceId(null);
+    setSelectedPostId(null);
+    if (window.location.pathname !== '/') {
+      window.history.replaceState({}, '', '/');
+    }
+  };
   const navigateToService = (id: string) => { setSelectedServiceId(id); setView('service'); };
   const navigateToServicesSection = () => handleSectionClick('services');
   const navigateToBlog = () => setView('blog');
@@ -71,21 +99,24 @@ const App: React.FC = () => {
   const LazyWhyUs = lazyWithRetry(() => import('./WhyUs.tsx'));
   const LazyUnitEconomics = lazyWithRetry(() => import('./UnitEconomics.tsx'));
   const LazyLegalPages = lazyWithRetry(() => import('./LegalPages.tsx'));
+  const LazyUnsubscribePage = lazyWithRetry(() => import('./UnsubscribePage.tsx'));
 
   return (
     <div className="relative min-h-screen bg-white selection:bg-emerald-500 selection:text-white antialiased">
-      <Navbar 
-        onHomeClick={navigateToHome} 
-        onBlogClick={navigateToBlog}
-        onRiskMapClick={navigateToRiskMap}
-        onWhyUsClick={navigateToWhyUs}
-        onRoadmapClick={navigateToRoadmap}
-        onUnitEconomicsClick={navigateToUnitEconomics}
-        onServicesClick={() => handleSectionClick('services')}
-        onContactClick={() => handleSectionClick('contact')}
-        onConsultClick={() => setIsAiOpen(true)}
-        isDark={view === 'home' || view === 'risk-map' || view === 'why-us' || view === 'roadmap' || view === 'unit-economics'} 
-      />
+      {view !== 'unsubscribe' && (
+        <Navbar 
+          onHomeClick={navigateToHome} 
+          onBlogClick={navigateToBlog}
+          onRiskMapClick={navigateToRiskMap}
+          onWhyUsClick={navigateToWhyUs}
+          onRoadmapClick={navigateToRoadmap}
+          onUnitEconomicsClick={navigateToUnitEconomics}
+          onServicesClick={() => handleSectionClick('services')}
+          onContactClick={() => handleSectionClick('contact')}
+          onConsultClick={() => setIsAiOpen(true)}
+          isDark={view === 'home' || view === 'risk-map' || view === 'why-us' || view === 'roadmap' || view === 'unit-economics'} 
+        />
+      )}
       
       <main className="relative overflow-x-hidden">
         {view === 'home' && (
@@ -150,30 +181,39 @@ const App: React.FC = () => {
             <LazyLegalPages type="cookies" onBack={navigateToHome} />
           </Suspense>
         )}
+        {view === 'unsubscribe' && (
+          <Suspense fallback={<div className="py-24 text-center">Загрузка...</div>}>
+            <LazyUnsubscribePage onBackHome={navigateToHome} />
+          </Suspense>
+        )}
       </main>
       
-      <Footer 
-        onBlogClick={navigateToBlog} 
-        onHomeClick={navigateToHome} 
-        onRiskMapClick={navigateToRiskMap}
-        onServiceClick={navigateToService}
-        onPrivacyClick={() => navigateToLegal('privacy')}
-      />
+      {view !== 'unsubscribe' && (
+        <Footer 
+          onBlogClick={navigateToBlog} 
+          onHomeClick={navigateToHome} 
+          onRiskMapClick={navigateToRiskMap}
+          onServiceClick={navigateToService}
+          onPrivacyClick={() => navigateToLegal('privacy')}
+        />
+      )}
 
-      <CookieConsent />
+      {view !== 'unsubscribe' && <CookieConsent />}
 
-      <button 
-        onClick={() => setIsAiOpen(true)}
-        className="fixed bottom-6 right-6 md:bottom-10 md:right-10 bg-black text-white p-5 md:p-6 rounded-full shadow-2xl hover:scale-105 transition-all z-[150] flex items-center gap-3 border border-white/10"
-      >
-        <div className="relative w-6 h-6">
-          <div className="absolute inset-0 border-2 border-emerald-500 rotate-45 animate-spin"></div>
-          <div className="absolute inset-0 flex items-center justify-center font-bold text-[10px]">AI</div>
-        </div>
-        <span className="hidden md:block text-[10px] font-bold uppercase tracking-widest">AI Стратег</span>
-      </button>
+      {view !== 'unsubscribe' && (
+        <button 
+          onClick={() => setIsAiOpen(true)}
+          className="fixed bottom-6 right-6 md:bottom-10 md:right-10 bg-black text-white p-5 md:p-6 rounded-full shadow-2xl hover:scale-105 transition-all z-[150] flex items-center gap-3 border border-white/10"
+        >
+          <div className="relative w-6 h-6">
+            <div className="absolute inset-0 border-2 border-emerald-500 rotate-45 animate-spin"></div>
+            <div className="absolute inset-0 flex items-center justify-center font-bold text-[10px]">AI</div>
+          </div>
+          <span className="hidden md:block text-[10px] font-bold uppercase tracking-widest">AI Стратег</span>
+        </button>
+      )}
 
-      {isAiOpen && (
+      {view !== 'unsubscribe' && isAiOpen && (
         <Suspense fallback={null}>
           <LazyAIAssistant onClose={() => setIsAiOpen(false)} />
         </Suspense>
