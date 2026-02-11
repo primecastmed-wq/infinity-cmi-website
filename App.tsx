@@ -22,12 +22,16 @@ type View =
   | 'unit-economics'
   | 'privacy'
   | 'cookies'
-  | 'unsubscribe';
+  | 'unsubscribe'
+  | 'subscribe-success';
 
 const getInitialView = (): View => {
   const path = window.location.pathname.toLowerCase();
   if (path === '/unsubscribe' || path === '/unsubscribed' || path === '/unsubscribe-materials') {
     return 'unsubscribe';
+  }
+  if (path === '/subscribe-success' || path === '/subscribed' || path === '/confirm-subscription') {
+    return 'subscribe-success';
   }
   return 'home';
 };
@@ -100,10 +104,11 @@ const App: React.FC = () => {
   const LazyUnitEconomics = lazyWithRetry(() => import('./UnitEconomics.tsx'));
   const LazyLegalPages = lazyWithRetry(() => import('./LegalPages.tsx'));
   const LazyUnsubscribePage = lazyWithRetry(() => import('./UnsubscribePage.tsx'));
+  const LazySubscribeSuccessPage = lazyWithRetry(() => import('./SubscribeSuccessPage.tsx'));
 
   return (
     <div className="relative min-h-screen bg-white selection:bg-emerald-500 selection:text-white antialiased">
-      {view !== 'unsubscribe' && (
+      {view !== 'unsubscribe' && view !== 'subscribe-success' && (
         <Navbar 
           onHomeClick={navigateToHome} 
           onBlogClick={navigateToBlog}
@@ -186,9 +191,14 @@ const App: React.FC = () => {
             <LazyUnsubscribePage onBackHome={navigateToHome} />
           </Suspense>
         )}
+        {view === 'subscribe-success' && (
+          <Suspense fallback={<div className="py-24 text-center">Загрузка...</div>}>
+            <LazySubscribeSuccessPage onBackHome={navigateToHome} />
+          </Suspense>
+        )}
       </main>
       
-      {view !== 'unsubscribe' && (
+      {view !== 'unsubscribe' && view !== 'subscribe-success' && (
         <Footer 
           onBlogClick={navigateToBlog} 
           onHomeClick={navigateToHome} 
@@ -198,9 +208,9 @@ const App: React.FC = () => {
         />
       )}
 
-      {view !== 'unsubscribe' && <CookieConsent />}
+      {view !== 'unsubscribe' && view !== 'subscribe-success' && <CookieConsent />}
 
-      {view !== 'unsubscribe' && (
+      {view !== 'unsubscribe' && view !== 'subscribe-success' && (
         <button 
           onClick={() => setIsAiOpen(true)}
           className="fixed bottom-6 right-6 md:bottom-10 md:right-10 bg-black text-white p-5 md:p-6 rounded-full shadow-2xl hover:scale-105 transition-all z-[150] flex items-center gap-3 border border-white/10"
@@ -213,7 +223,7 @@ const App: React.FC = () => {
         </button>
       )}
 
-      {view !== 'unsubscribe' && isAiOpen && (
+      {view !== 'unsubscribe' && view !== 'subscribe-success' && isAiOpen && (
         <Suspense fallback={null}>
           <LazyAIAssistant onClose={() => setIsAiOpen(false)} />
         </Suspense>
