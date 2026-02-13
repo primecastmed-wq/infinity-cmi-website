@@ -1,6 +1,5 @@
 
 {
-  "trailingSlash": false,
   "routes": [
     {
       "handle": "filesystem"
